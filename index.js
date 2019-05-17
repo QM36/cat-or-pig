@@ -52,4 +52,4 @@ function catOrPig() {
 }
 module.exports = catOrPig;
 // test
-// catOrPig(['qm','qumeng','counter']); 
+// catOrPig(['qm','counter','jack']); 
