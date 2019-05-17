@@ -1,4 +1,3 @@
-// import {cat, pig} from './data.js';
 const cat = ['cat', 'qm', 'mmz', 'qumeng', 'kmno2'];
 const pig = ['pig', 'pangzi', 'counter', 'counterxing', 'xingbofeng'];
 
