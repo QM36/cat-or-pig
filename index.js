@@ -1,55 +1,93 @@
-const cat = ['cat', 'qm', 'mmz', 'qumeng', 'kmno2'];
-const pig = ['pig', 'pangzi', 'counter', 'counterxing', 'xingbofeng'];
+#!/usr/bin/env node
+const readline = require('readline');
+const rl = readline.createInterface(process.stdin, process.stdout);
+let language = process.argv[3]
+rl.setPrompt('cop> ');
+rl.prompt();
 
-function checkType (arg) { //有一点疑问就是这里的checkType函数是否有必要
-	let type = Object.prototype.toString.call(arg); 
-	if(type === '[object Null]') {
-		return 'Null'
-	} else if(type === '[object Undefined]') {
-		return 'Undefined'
-	} else if(type === '[object String]') { //传入一个字符串
-		return 'String'
-	} else if(type === '[object Array]') { //传入一个数组
-		return 'Array'
-	} else if(type === '[object Number]') {
-		console.log('WARNING：The input type will be forcibly converted to a string!')
-		return 'String'
-	}
+rl.on('line', function(line) {
+	let language = line.split(',')[0];
+	let name = line.split(',')[1];
+    switch(name) {
+        case 'exit':
+            rl.close();
+            break;
+        default:
+            catOrPig(language, name);
+            break;
+    }
+    rl.prompt();
+});
+
+rl.on('close', function() {
+    process.exit(0);
+});
+
+const cat = ['cat', 'qm', 'mmz', 'qumeng', 'kmno2', '屈萌', '萌妹子'];
+const pig = ['pig', 'pangzi', 'counter', 'counterxing', 'xingbofeng', 'juju', '臭猪', '邢博峰'];
+
+function checkType (arg) { //统一检测类型的函数，标准的输出
+	let type = Object.prototype.toString.call(arg);
+	return type.slice(8, type.length - 1);
 }
-function checkString(string) {
-	string.toString();
+function checkString(language, string) {
+	string.toString(); //可能传入数字类型，所以要统一转换
 	if(cat.indexOf(string) > -1) {
-		console.log(string + ' is cat');
+		if(language === 'zh') { //我在想这里的判断函数要不要提出去
+			console.log(`${string}是猫`);
+		} else if(language === 'en') {
+			console.log(`${string} is cat`);
+		} 
 	} else if(pig.indexOf(string) > -1) {
-		console.log(string + ' is pig');
+		if(language === 'zh') {
+			console.log(`${string}是猪`);
+		} else if(language === 'en') {
+			console.log(`${string} is pig`);
+		}
 	} else {
-		console.log(string + ': I do not know him or her');
+		if(language === 'zh') {
+			console.log(`${string}: 我不认识他或者她`);
+		} else if(language === 'en') {
+			console.log(`${string}: I do not know him or her`);
+		}
 	}
 }
-function checkArray(arr) {
+function checkArray(language, arr) {
 	arr.forEach(item => { //数组每一项的检测
-		if(checkType(item) === 'String') {
-			checkString(item);
+		if(checkType(item) === 'String' || checkType(item) === 'Number') {
+			checkString(language, item);
 		} else if(checkType(item) === 'Array'){
-			checkArray(item);
+			checkArray(language, item);
 		} else if(checkType(item) === 'Null' || checkType(item) === 'Undefined') {
-			console.log('Non-standard input!');
+			if(language === 'zh') {
+				console.log(`${item}: 不标准的输入`);
+			} else if(language === 'en') {
+				console.log(`${item}: Non-standard input!`);
+			}
 		}
 	});
 }
-function catOrPig() {
-	for(let i = 0; i < arguments.length; i++) {
-		let type = checkType(arguments[i]);
-		if(type === 'String') {
-			checkString(arguments[i]);
-		} else if(type === 'Array') {
-			checkArray(arguments[i]);
-		} else if(type === 'Null' || type === 'Undefined') {
-			console.log('Non-standard input!')
-		} 
+function catOrPig(language, ...args) {
+	if(language !== 'zh'&&language !== 'en') {
+		console.log(`Please deliver a standard parameter for language. (请传递标准的语言配置参数)`);
+		return
 	}
-	
+	args.forEach(item => {
+		let type = checkType(item);
+		if(type === 'String' || type === 'Number') {
+			checkString(language, item);
+		} else if(type === 'Array') {
+			checkArray(language, item);
+		} else if(type === 'Null' || type === 'Undefined') {
+			if(language === 'zh') {
+				console.log(`${item}: 不标准的输入`);
+			} else if(language === 'en') {
+				console.log(`${item}: Non-standard input!`);
+			}
+		} 
+	})
 }
+
 module.exports = catOrPig;
 // test
-// catOrPig(['qm','counter','jack']); 
+// catOrPig('n',['qm','counter','jack'],null); 

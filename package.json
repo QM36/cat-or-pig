@@ -1,5 +1,8 @@
 {
   "name": "cat-or-pig",
+  "bin": {
+    "cop": "index.js"
+  },
   "version": "1.1.0",
   "description": "Distinguish between cats and pigs",
   "main": "index.js",
