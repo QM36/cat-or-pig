@@ -13,8 +13,7 @@
 	* `jack, mark`
 	* `[jack, mark]` or `[jack,[mark, mary]]`
 * Supporting command line operations: 
-	* Input `cop` to run the program.
-	* Each line needs to input a language configuration parameter(`zh`or`en`) and a name separated by commas(`,`)
+	* Input `cop`and anoter language configuration parameter(`zh`or`en`) to run the program.
 
 ### examples
 * One string
@@ -37,10 +36,10 @@
 	```
 * Command line operations
 	```
-	➜  cat-or-pig git:(master) ✗ cop
-	cop> zh,qm
+	➜  cat-or-pig git:(master) ✗ cop zh
+	cop> qm
 	qm是猫
-	cop> en,qm
-	qm is cat
+	cop> counter
+	counter是猪
 	cop>
 	```
