@@ -6,16 +6,10 @@ rl.setPrompt('cop> ');
 rl.prompt();
 
 rl.on('line', function(line) {
+	if(line === 'exit') rl.close();
 	let language = line.split(',')[0];
 	let name = line.split(',')[1];
-    switch(name) {
-        case 'exit':
-            rl.close();
-            break;
-        default:
-            catOrPig(language, name);
-            break;
-    }
+	catOrPig(language, name);
     rl.prompt();
 });
 
