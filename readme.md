@@ -18,18 +18,18 @@
 ### examples
 * One string
 	```
-	catOrPig('qm'); 
+	catOrPig('en','qm'); 
 	//qm is cat
 	```
 * Multiple strings
 	```
-	catOrPig('qm','counter'); 
+	catOrPig('en','qm','counter'); 
 	//qm is cat
 	//counter is pig
 	```
 * One array
 	```
-	catOrPig(['qm','counter','jack']); 
+	catOrPig('en',['qm','counter','jack']); 
 	//qm is cat
 	//counter is pig
 	//jack: I do not know him or her
